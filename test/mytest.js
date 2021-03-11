@@ -5,9 +5,13 @@ contract('Redroad', async addresses => {
 	const [admin, buyer1, buyer2, _] = addresses;
 
 	it('works correctly.', async () => {		
-		const con = await Redroad.new("My flyign NFT", "TIT");	
-		await con.mint(admin, 1);
-		await con.approve(rft.address, 1);
-		
+		let id;
+		const road = await Redroad.new("The boss", "TIT")		
+		await road.awardItem(admin, "https://game.example/item-id-8u5h2m.json")
+		.then(d=>{
+			id = d.logs[0].args.tokenId.toString();
+		});	
+		await road.ownerOf(id).then(d=>console.log(d));
+		await road.tokenURI(id).then(d=>console.log(d));
 	});
 });

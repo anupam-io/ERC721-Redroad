@@ -1,16 +1,27 @@
-// SPDX-License-Identifier: Unlicensed
-pragma solidity >=0.6.2 <0.8.0;
-import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
+// contracts/GameItem.sol
+// SPDX-License-Identifier: MIT
+pragma solidity <0.8.0;
 
-contract Redroad is ERC721{
-    constructor(
-        string memory name,
-        string memory symbol
-    )
-    ERC721(name, symbol){
-    }
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-    function mint(address to, uint tokenId)external{
-        _mint(to, tokenId);
+contract Redroad is ERC721 {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+    constructor(string memory name, string memory symbol) 
+    ERC721(name, symbol) {}
+
+    function awardItem(address player, string memory tokenURI)
+        public
+        returns (uint256)
+    {
+        _tokenIds.increment();
+
+        uint256 newItemId = _tokenIds.current();
+        _mint(player, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+
+        return newItemId;
     }
 }
