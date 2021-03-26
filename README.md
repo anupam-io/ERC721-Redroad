@@ -8,3 +8,8 @@
  - https://medium.com/crypto-currently/the-anatomy-of-erc721-e9db77abfc24
  - https://education.district0x.io/general-topics/understanding-ethereum/erc-721-tokens/ 
  - https://decrypt.co/resources/erc721-what-is-it-guide-ehtereum-token
+
+## Notes
+ - Third party to create NFT
+ - Giving NFT from someone
+ - Transferring tokens

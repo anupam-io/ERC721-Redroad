@@ -9,8 +9,9 @@ contract Redroad is ERC721 {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor(string memory name, string memory symbol) 
-    ERC721(name, symbol) {}
+    constructor(string memory name, string memory symbol)
+        ERC721(name, symbol)
+    {}
 
     function awardItem(address player, string memory tokenURI)
         public
