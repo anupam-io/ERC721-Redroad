@@ -9,7 +9,7 @@
   "scripts": {
     "test": "truffle test",
     "migrate": "truffle migrate --reset --network rinkeby",
-    "verify": "truffle run verify Mushroom --network rinkeby --license MIT"
+    "verify": "truffle run verify Redroad --network rinkeby --license MIT"
   },
   "repository": {
     "type": "git",
