@@ -13,3 +13,11 @@
  - Third party to create NFT
  - Giving NFT from someone
  - Transferring tokens
+
+
+Parent contract
+ - handles member logic
+Comptroller
+ - handles amount and lending
+NFT Distributor
+ - check & distribute ownership

@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "truffle test",
+    "migrate": "truffle migrate --reset --network rinkeby",
+    "verify": "truffle run verify Mushroom --network rinkeby --license MIT"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,9 @@
   "homepage": "https://github.com/akcgjc007/erc721-octo-token#readme",
   "dependencies": {
     "@openzeppelin/contracts": "^3.4.1",
-    "@openzeppelin/test-helpers": "^0.5.10"
+    "@truffle/hdwallet-provider": "1.0.40",
+    "dotenv": "^8.2.0",
+    "truffle": "^5.2.6",
+    "truffle-plugin-verify": "^0.5.7"
   }
 }

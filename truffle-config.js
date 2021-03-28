@@ -18,11 +18,11 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+require("dotenv").config();
+
+const mnemonic = process.env.MNEMONIC;
+const url = process.env.RPC_URL;
 
 module.exports = {
   /**
@@ -36,6 +36,13 @@ module.exports = {
    */
 
   networks: {
+    rinkeby: {
+      provider: () => {
+        return new HDWalletProvider(mnemonic, url);
+      },
+      network_id: "4",
+      skipDryRun: true,
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -82,7 +89,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.7.2",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.7.2", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -91,7 +98,7 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled: false to enabled: true
@@ -101,6 +108,10 @@ module.exports = {
   // $ truffle migrate --reset --compile-all
 
   db: {
-    enabled: false
-  }
+    enabled: false,
+  },
+  api_keys: {
+    etherscan: process.env.ETHERSCAN_API_KEY,
+  },
+  plugins: ["truffle-plugin-verify"],
 };

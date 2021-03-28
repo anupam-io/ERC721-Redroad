@@ -1,23 +1,24 @@
+const assert = require("assert");
 const Redroad = artifacts.require("Redroad");
 const inWei = 10 ** 18;
 
 contract("Redroad", async (addresses) => {
-  const [admin, buyer1, buyer2, _] = addresses;
+  const [admin, buyer1, _] = addresses;
 
   it("works correctly.", async () => {
     let id;
     const road = await Redroad.new("The boss", "BRO");
     await road
-      .awardItem(admin, "https://game.example/item-id-8u5h2m.json")
+      .awardItem(admin, "https://www.mywebsite.com/tokenURI")
       .then((d) => {
         id = d.logs[0].args.tokenId.toString();
       });
-    await road.ownerOf(id).then((d) => console.log("ownerOf: ", d));
-    await road.tokenURI(id).then((d) => console.log("tokenURI: ", d));
-    await road
-      .totalSupply()
-      .then((d) => console.log("Total supply: ", d.toString()));
 
+    assert.strictEqual(await road.ownerOf(id), admin);
+    assert.strictEqual(parseInt(await road.balanceOf(admin)), 1);
+    assert.strictEqual(parseInt(await road.totalSupply()), 1);
+
+    // Checking balance
     await road
       .balanceOf(admin)
       .then((d) => console.log("Admin: ", d.toString()));
@@ -29,6 +30,7 @@ contract("Redroad", async (addresses) => {
     await road.approve(buyer1, id, { from: admin });
     await road.transferFrom(admin, buyer1, id, { from: buyer1 });
 
+    // Checking balance
     await road
       .balanceOf(admin)
       .then((d) => console.log("Admin: ", d.toString()));
